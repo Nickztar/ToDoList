@@ -11,6 +11,8 @@ function changeOrder(){
     renderFakeData();
 }
 
+getId("orderButton").addEventListener("click", changeOrder);
+
 renderFakeData();
 
 function renderFakeData(){
