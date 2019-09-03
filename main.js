@@ -17,9 +17,9 @@ function renderFakeData(){
             </div>`;
     }); //end map
 
-    document.getElementById("taskList").innerHTML = htmlOutput.join("");
+    getId("taskList").innerHTML = htmlOutput.join("");
 
-    function retrieveElementId(id){
+    function getId(id){
         return document.getElementById(id);
     }
 }
