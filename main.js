@@ -20,8 +20,9 @@ function renderFakeData(){
     let htmlOutput = fakeDataBase.map(function(taskObject, index){
         return `
             <div>
-                <h1>${taskObject.task} <sub>${taskObject.id}</sub></h1>
-                <button id="${index}" onclick = "deleteTask(${index})">Delete</button>
+                <h1 id = "${index}">${taskObject.task} <sub>${taskObject.ready}</sub></h1>
+                <button onclick = "deleteTask(${index})">Delete</button>
+                <button onclick = "completeTask(${index})">Complete</button>
             </div>`;
     }); //end map
     if(order == true){
@@ -63,6 +64,14 @@ function deleteTask(index)
 {
     fakeDataBase.splice(index, 1);
     renderFakeData();
+}
+
+function completeTask(index)
+{
+    let objectTask = fakeDataBase[index];
+    objectTask.ready = !objectTask.ready;
+    renderFakeData();
+
 }
 
 function getId(id){
