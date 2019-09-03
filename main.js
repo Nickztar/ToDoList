@@ -17,11 +17,11 @@ renderFakeData();
 
 function renderFakeData(){
     // Skapa html från vår databas
-    let htmlOutput = fakeDataBase.map(function(taskObject){
+    let htmlOutput = fakeDataBase.map(function(taskObject, index){
         return `
             <div>
-                <h1>${taskObject.task}</h1>
-                <button>Delete</button>
+                <h1>${taskObject.task} <sub>${taskObject.id}</sub></h1>
+                <button id="${index}" onclick = "deleteTask(${index})">Delete</button>
             </div>`;
     }); //end map
     if(order == true){
@@ -34,9 +34,7 @@ function renderFakeData(){
    
 }
 
-function getId(id){
-    return document.getElementById(id);
-}
+
 
 //Lyssna efter form-submit.
 getId("taskForm").addEventListener("submit", addTask);
@@ -50,7 +48,7 @@ function addTask(event){
     if(input.trim() != "")
     {
         //skapa ett taskobject
-        let taskObject = {task:input, ready:false}
+        let taskObject = {id: Date.now(), task:input, ready:false}
         //spara i fakeDataBase
         fakeDataBase.push(taskObject);
         //renderar nytt
@@ -59,4 +57,14 @@ function addTask(event){
         getId("taskId").focus();
     }
 
+}
+
+function deleteTask(index)
+{
+    fakeDataBase.splice(index, 1);
+    renderFakeData();
+}
+
+function getId(id){
+    return document.getElementById(id);
 }
