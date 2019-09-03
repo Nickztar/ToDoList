@@ -4,6 +4,13 @@ let fakeDataBase = [
     {id:1, task: "Gå och slå måns", ready:false}
 ];
 
+let order = true;
+
+function changeOrder(){
+    order = !order;
+    renderFakeData();
+}
+
 renderFakeData();
 
 function renderFakeData(){
@@ -15,8 +22,12 @@ function renderFakeData(){
                 <button>Delete</button>
             </div>`;
     }); //end map
-
-    getId("taskList").innerHTML = htmlOutput.join("");
+    if(order == true){
+        getId("taskList").innerHTML = htmlOutput.join("");
+    }
+    else{
+        getId("taskList").innerHTML = htmlOutput.reverse().join("");
+    }
 
    
 }
@@ -33,14 +44,17 @@ function addTask(event){
     event.preventDefault();
     //hämta input datan
     let input = getId("taskId").value;
-    //skapa ett taskobject
-    let taskObject = {task:input, ready:false}
-    //spara i fakeDataBase
-    fakeDataBase.push(taskObject);
-    //renderar nytt
-    renderFakeData();
-
-    getId("taskId").value = "";
-    getId("taskId").focus();
+    //testar om den har information
+    if(input.trim() != "")
+    {
+        //skapa ett taskobject
+        let taskObject = {task:input, ready:false}
+        //spara i fakeDataBase
+        fakeDataBase.push(taskObject);
+        //renderar nytt
+        renderFakeData();
+        getId("taskId").value = "";
+        getId("taskId").focus();
+    }
 
 }
