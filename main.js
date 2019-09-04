@@ -35,8 +35,6 @@ function renderFakeData(){
    
 }
 
-
-
 //Lyssna efter form-submit.
 getId("taskForm").addEventListener("submit", addTask);
 
