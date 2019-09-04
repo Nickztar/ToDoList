@@ -1,8 +1,11 @@
-let fakeDataBase = [
-    {id:1, task: "Gå och spela", ready:false},
-    {id:1, task: "Gå och spoila", ready:false},
-    {id:1, task: "Gå och slå måns", ready:false}
-];
+let fakeDataBase;
+
+if (localStorage.getItem("todo2019")){
+    fakeDataBase = JSON.parse(localStorage.getItem("todo2019"));
+}
+else {
+    fakeDataBase = [];
+}
 
 let order = true;
 
@@ -35,7 +38,6 @@ function renderFakeData(){
    
 }
 
-//Lyssna efter form-submit.
 getId("taskForm").addEventListener("submit", addTask);
 
 function addTask(event){
@@ -44,31 +46,35 @@ function addTask(event){
     //hämta input datan
     let input = getId("taskId").value;
     //testar om den har information
-    if(input.trim() != "")
-    {
+    if(input.trim() != ""){
         //skapa ett taskobject
         let taskObject = {id: Date.now(), task:input, ready:false}
         //spara i fakeDataBase
         fakeDataBase.push(taskObject);
         //renderar nytt
         renderFakeData();
+        //spara lokalt
+        saveLocal();
         getId("taskId").value = "";
         getId("taskId").focus();
     }
 
 }
 
-function deleteTask(index)
-{
+function deleteTask(index){
     fakeDataBase.splice(index, 1);
     renderFakeData();
+    saveLocal();
 }
 
-function completeTask(index)
-{
+function completeTask(index){
     fakeDataBase[index].ready = !fakeDataBase[index].ready;
     renderFakeData();
+    saveLocal();
+}
 
+function saveLocal(){
+    localStorage.setItem("todo2019", JSON.stringify(fakeDataBase));
 }
 
 function getId(id){
