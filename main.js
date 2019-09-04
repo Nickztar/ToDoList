@@ -55,6 +55,7 @@ function addTask(event){
         renderFakeData();
         //spara lokalt
         saveLocal();
+        //ändra inputen
         getId("taskId").value = "";
         getId("taskId").focus();
     }
